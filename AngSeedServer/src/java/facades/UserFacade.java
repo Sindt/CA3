@@ -110,6 +110,5 @@ public class UserFacade {
             em.close();
         }
         return userList;
-
     }
 }
