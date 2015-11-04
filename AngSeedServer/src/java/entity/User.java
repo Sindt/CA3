@@ -9,9 +9,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u"),
+    @NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.username = :username")})
 @Table(name = "user")
 public class User implements Serializable {
 
@@ -22,7 +27,7 @@ public class User implements Serializable {
     @Column(name = "password")
     private String password;  //Pleeeeease dont store me in plain text
     @Column(name = "username")
-    private String userName;
+    private String username;
     @ElementCollection
     private List<String> roles = new ArrayList();
 
@@ -30,12 +35,12 @@ public class User implements Serializable {
     }
 
     public User(String userName, String password) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
     }
 
     public User(String userName, String password, List<String> roles) {
-        this.userName = userName;
+        this.username = userName;
         this.password = password;
         this.roles = roles;
     }
@@ -64,12 +69,12 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 }
