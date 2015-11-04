@@ -24,25 +24,6 @@ public class UserFacade {
         return emf.createEntityManager();
     }
 
-//    private final Map<String, User> users = new HashMap<>();
-//
-////    public UserFacade() {
-//        //Test Users
-//        User user = new User("user", "test");
-//        user.AddRole("User");
-//        users.put(user.getUsername(), user);
-//        User admin = new User("admin", "test");
-//        admin.AddRole("Admin");
-//        users.put(admin.getUsername(), admin);
-//
-//        User both = new User("user_admin", "test");
-//        both.AddRole("User");
-//        both.AddRole("Admin");
-//        users.put(both.getUsername(), both);
-//    }
-//    public User getUserByUserId(String id) {
-//        return users.get(id);
-//    }
     /*
      Return the Roles if users could be authenticated, otherwise null
      */
