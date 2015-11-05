@@ -7,7 +7,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("user")
-@RolesAllowed("User")
+//@RolesAllowed("User")
 public class User {
   
   @GET

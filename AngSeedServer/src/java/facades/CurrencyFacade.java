@@ -6,8 +6,12 @@
 package facades;
 
 import entity.Currency;
+import entity.User;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 /**
  *
@@ -38,5 +42,22 @@ public class CurrencyFacade {
             em.close();
         }
         return c;
+    }
+
+    public Currency getCurrency(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public List<Currency> getAllCurrencys() {
+        EntityManager em = getEntityManager();
+        List<Currency> curList;
+        try {
+            curList = new ArrayList();
+            Query q = em.createNamedQuery("Currency.findAll");
+            curList = q.getResultList();
+        } finally {
+            em.close();
+        }
+        return curList;
     }
 }

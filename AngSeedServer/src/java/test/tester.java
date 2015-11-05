@@ -7,6 +7,7 @@ package test;
 
 import deploy.DeploymentConfiguration;
 import entity.User;
+import facades.CurrencyFacade;
 import facades.UserFacade;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
@@ -25,8 +26,9 @@ public class tester {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
 
         UserFacade uf = new UserFacade(emf);
-        
-        Persistence.generateSchema(DeploymentConfiguration.PU_NAME, null);
+
+        CurrencyFacade cu = new CurrencyFacade(emf);
+
 //
 //        User u1 = uf.getUser(1);
 //        System.out.println(u1.getUsername());
@@ -37,8 +39,6 @@ public class tester {
 //        for (User u : userList) {
 //            System.out.println(u.getUsername() + " " + u.getPassword());
 //        }
-
-        
     }
 
 }

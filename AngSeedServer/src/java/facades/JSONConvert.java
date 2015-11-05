@@ -8,6 +8,7 @@ package facades;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import entity.Currency;
 import entity.User;
 import java.util.List;
 
@@ -27,8 +28,15 @@ public class JSONConvert {
         return gson.toJson(u);
     }
 
+    public static String getJSONFromCurrency(Currency c) {
+        return gson.toJson(c);
+    }
+
     public static String getJSONFromUsers(List<User> users) {
         return gson.toJson(users);
+    }
+    public static String getJSONFromCurrencys(List<Currency> curs) {
+        return gson.toJson(curs);
     }
 
 }
