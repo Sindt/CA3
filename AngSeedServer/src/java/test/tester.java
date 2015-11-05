@@ -25,6 +25,8 @@ public class tester {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
 
         UserFacade uf = new UserFacade(emf);
+        
+        Persistence.generateSchema(DeploymentConfiguration.PU_NAME, null);
 //
 //        User u1 = uf.getUser(1);
 //        System.out.println(u1.getUsername());

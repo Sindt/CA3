@@ -5,11 +5,8 @@
         <group name="a"/>
         <group>
             <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/test/tester.java</file>
-            <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/facades/JSONConvert.java</file>
+            <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/facades/CurrencyFacade.java</file>
             <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/entity/Currency.java</file>
-            <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/rest/Admin.java</file>
-            <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/rest/User.java</file>
-            <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/entity/User.java</file>
             <file>file:/C:/Users/Sindt/Documents/NetBeansProjects/semesterSeedFall2015/AngSeedServer/src/java/facades/XmlReaderDemo.java</file>
         </group>
     </open-files>

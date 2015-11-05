@@ -22,12 +22,12 @@ import javax.persistence.Table;
 public class Currency implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "currency_id")
     private int id;
-    @Column(name = "code")
+    @Column(name = "country_code")
     private String code;
-    @Column(name = "desc")
+    @Column(name = "description")
     private String desc;
     @Column(name = "rate")
     private double rate;

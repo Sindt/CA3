@@ -5,8 +5,14 @@
  */
 package facades;
 
+import deploy.DeploymentConfiguration;
+import entity.Currency;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -20,7 +26,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class XmlReaderDemo extends DefaultHandler {
 
-    String[] elements;
+    CurrencyFacade facade = new CurrencyFacade(Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME));
 
     @Override
     public void startDocument() throws SAXException {
@@ -33,12 +39,35 @@ public class XmlReaderDemo extends DefaultHandler {
     }
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+        List<String> elements = new ArrayList();
         System.out.print("Element: " + localName + ": ");
-
         for (int i = 0; i < attributes.getLength(); i++) {
-            System.out.print("[Atribute: NAME: " + attributes.getLocalName(i) + " VALUE: " + attributes.getValue(i)  + "]");
+            if (localName.equals("currency")) {
+                elements.add(attributes.getValue(i));
+            }
+            //System.out.print("[ VALUE: " + attributes.getValue(i) + "] ");
         }
+        System.out.println("VAL = " + elements);
+        if (!elements.isEmpty()) {
+            Currency cur = new Currency();
+            cur.setCode(elements.get(0));
+            cur.setDesc(elements.get(1));
+            if (elements.get(2).equalsIgnoreCase("-")) {
+                elements.set(2, "0");
+            }
+            cur.setRate(Double.parseDouble(elements.get(2)));
+            facade.addCurruncy(cur);
+
+            System.out.println(elements);
+
+        }
+
         System.out.println("");
+
+        for (String element : elements) {
+            //System.out.println(element + " = element ");
+
+        }
     }
 
     public static void main(String[] argv) {
