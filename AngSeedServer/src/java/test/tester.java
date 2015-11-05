@@ -25,17 +25,18 @@ public class tester {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
 
         UserFacade uf = new UserFacade(emf);
+//
+//        User u1 = uf.getUser(1);
+//        System.out.println(u1.getUsername());
+//        User u2 = uf.getUserByName("user");
+//        System.out.println(u2.getPassword());
+//        //uf.addUser("user_admin", "test");
+//        List<User> userList = uf.getAllUsers();
+//        for (User u : userList) {
+//            System.out.println(u.getUsername() + " " + u.getPassword());
+//        }
 
-        User u1 = uf.getUser(1);
-        System.out.println(u1.getUsername());
-        User u2 = uf.getUserByName("user");
-        System.out.println(u2.getPassword());
-        //uf.addUser("user_admin", "test");
-        List<User> userList = uf.getAllUsers();
-        for (User u : userList) {
-            System.out.println(u.getUsername() + " " + u.getPassword());
-        }
-
+        
     }
 
 }
