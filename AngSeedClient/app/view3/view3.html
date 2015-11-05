@@ -1,6 +1,36 @@
-<h3>This is the partial for view 3.</h3>
-<div>
-  <p>Company info will be displayed here.</p>
+<div ng-controller="View3Ctrl as ctrl">
+    <script type="text/ng-template" id="group-template.html">
+        <div class="panel {{panelClass || 'panel-default'}}">
+        <div class="panel-heading">
+        <h4 class="panel-title" style="color:#fa39c3">
+        <a href tabindex="0" class="accordion-toggle" ng-click="toggleOpen()" uib-accordion-transclude="heading"><span
+        ng-class="{'text-muted': isDisabled}">{{heading}}</span></a>
+        </h4>
+        </div>
+        <div class="panel-collapse collapse" uib-collapse="!isOpen">
+        <div class="panel-body" style="text-align: right" ng-transclude></div>
+        </div>
+        </div>
+    </script>
+    <h3>{{ctrl.cvr.name}}</h3>
+    <div class="col-md-4">
+        <p ng-bind="ctrl.cvr.address"></p>
+        <p ng-bind="ctrl.cvr.zipcode"></p>
+        <p ng-bind="ctrl.cvr.city"></p>
+        
+        
+    </div>
+    <div class="col-md-4">
+        <uib-accordion ng-repeat="cvr in ctrl.cvr.productionunits">
+            <uib-accordion-group heading="{{cvr.name}}" url-template="group-template.html">
+                <label>Name: </label><p>{{cvr.name}}</p>
+                <label>Address: </label><p>{{cvr.address}}</p>
+                <label>Zipcode : </label><p>{{cvr.zipcode}}</p>
+                <label>City : </label><p>{{cvr.city}}</p>
+            </uib-accordion-group>
+        </uib-accordion>
+    </div>
+
 </div>
 
 
