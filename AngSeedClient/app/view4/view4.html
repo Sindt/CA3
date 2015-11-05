@@ -1,4 +1,16 @@
-<h3>This is the partial for view 4.</h3>
-<div>
-  <p>Exchange Rate Info will be displayed here.</p>
+<div ng-controller="View4Ctrl as ctrl">
+    <h3>This is the partial for view 4.</h3>
+    <table class="table" style="width: 50%">
+        <thead>
+            <tr><td>ID</td><td>Country Code</td><td>Description</td><td>Rate</td></tr>
+        </thead>
+        <tbody id="tbody" ng-repeat="curs in ctrl.data">
+            <tr>
+                <td>{{curs.id}}</td>
+                <td>{{curs.code}}</td>
+                <td>{{curs.desc}}</td>
+                <td>{{curs.rate}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
