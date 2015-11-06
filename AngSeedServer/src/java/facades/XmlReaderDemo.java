@@ -31,6 +31,7 @@ public class XmlReaderDemo extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         System.out.println("Start Document (Sax-event)");
+        facade.moveCurrencys();
     }
 
     @Override
@@ -64,10 +65,6 @@ public class XmlReaderDemo extends DefaultHandler {
 
         System.out.println("");
 
-        for (String element : elements) {
-            //System.out.println(element + " = element ");
-
-        }
     }
 
     public static void main(String[] argv) {

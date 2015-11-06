@@ -60,4 +60,8 @@ public class CurrencyFacade {
         }
         return curList;
     }
+
+    void moveCurrencys() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
