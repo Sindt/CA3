@@ -1,4 +1,18 @@
-<h3>This is the partial for view 5.</h3>
-<div>
-  <p>All Users will be displayed here.</p>
+<div ng-controller="View4Ctrl as ctrl">
+    <h3>All Users</h3>
+    <br>
+    <input type="search" ng-model="userfilter" placeholder="Filter users">
+    <br>
+    <table class="table" style="width: 50%">
+        <thead>
+            <tr><td>ID</td><td>Username</td><td></td></tr>
+        </thead>
+        <tbody id="tbody">
+            <tr  ng-repeat="users in ctrl.data | filter: userfilter">
+                <td>{{users.id}}</td>
+                <td>{{users.username}}</td>
+                <td><a href="#" ng-click="deleteCar(car.id)">delete</a></td>
+            </tr>
+        </tbody>
+    </table>
 </div>
