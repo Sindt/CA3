@@ -32,14 +32,16 @@ public class User {
     }
 
     @POST
-    @Path("/registration")
+    @Path("registration")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public String registerUser(String user) {
 
+        
+        
         entity.User newUser = JSONConvert.getUserFromJson(user);
         newUser = facade.addUser(newUser.getUsername(), newUser.getPassword());
-
+        
         return JSONConvert.getJSONFromUser(newUser);
 //
 //        if (facade.getUserByName(newUser.getUsername()).toString().isEmpty()) {
