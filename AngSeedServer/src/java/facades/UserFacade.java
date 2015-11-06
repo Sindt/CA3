@@ -39,6 +39,7 @@ public class UserFacade {
         try {
             u.setUsername(username);
             u.setPassword(PasswordHash.createHash(password));
+            u.AddRole("User");
             em.getTransaction().begin();
             em.persist(u);
             em.getTransaction().commit();
