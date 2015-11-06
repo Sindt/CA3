@@ -1,16 +1,18 @@
 <div class="row">
     <div class="col-sm-4">
-        <form class="form-signin" ng-show="!isAuthenticated" ng-submit="addUserAsJSON()">
-            <h2 class="form-signin-heading">User Registration</h2>
-            <label for="inputUsername" class="sr-only">username</label>
-            <input type="username" id="username" class="form-control" 
-                   placeholder="username" required ng-model="newuser.username">
-            
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" 
-                   placeholder="Password" required ng-model="newuser.password">
-            
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
+        <div ng-controller="View7Controller">
+            <form class="form-signin"  ng-submit="addUserAsJSON()">
+                <h2 class="form-signin-heading">User Registration</h2>
+                <label for="inputUsername" class="sr-only">username</label>
+                <input type="username" id="username" class="form-control" 
+                       placeholder="username" required ng-model="newuser.username">
+
+                <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" class="form-control" 
+                       placeholder="Password" required ng-model="newuser.password">
+
+                <button class="btn btn-lg btn-primary btn-block" value="submit" type="submit">Register</button>
+            </form>
+        </div>
     </div>
 </div>

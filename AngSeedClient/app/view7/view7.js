@@ -10,25 +10,22 @@ angular.module('myApp.view7', ['ngRoute'])
         
         .controller("View7Controller", ['$scope', '$http', function($scope, $http) {
 	
-        $scope.users = [];
+
 	
 	$scope.addUserAsJSON = function(){		
-		$scope.users.push({ 'username':$scope.newuser.username, 'password': $scope.newuser.password});
 		// Writing it to the server
 		//		
-		var dataObj = {
-				username : $scope.newuser.username,
-				password : $scope.newuser.password,
-		};	
-		var res = $http.post('/api/user/registration', dataObj);
+	
+		var res = $http.post('api/user/registration', $scope.newuser);
 		res.success(function(data, status, headers, config) {
-			$scope.message = data;
+                            $scope.message = data;
+                            alert("You are registered. Go to Login Section to log in.")
 		});
 		res.error(function(data, status, headers, config) {
 			alert( "failure message: " + JSON.stringify({data: data}));
 		});		
-		// Making the fields empty
-		//
+//		 Making the fields empty
+		
 		$scope.newuser.username='';
 		$scope.newuser.password='';
 	};

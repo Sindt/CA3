@@ -1,11 +1,14 @@
 <div ng-controller="View4Ctrl as ctrl">
-    <h3>This is the partial for view 4.</h3>
+    <h3>Exchange Rate Info</h3>
+    <br>
+    <input type="search" ng-model="currencyfilter" placeholder="Filter currency">
+    <br>
     <table class="table" style="width: 50%">
         <thead>
             <tr><td>ID</td><td>Country Code</td><td>Description</td><td>Rate</td></tr>
         </thead>
-        <tbody id="tbody" ng-repeat="curs in ctrl.data">
-            <tr>
+        <tbody id="tbody">
+            <tr  ng-repeat="curs in ctrl.data | filter: currencyfilter">
                 <td>{{curs.id}}</td>
                 <td>{{curs.code}}</td>
                 <td>{{curs.desc}}</td>
