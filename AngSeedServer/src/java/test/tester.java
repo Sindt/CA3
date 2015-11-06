@@ -29,6 +29,7 @@ public class tester {
 
         CurrencyFacade cu = new CurrencyFacade(emf);
 
+        
 //
 //        User u1 = uf.getUser(1);
 //        System.out.println(u1.getUsername());

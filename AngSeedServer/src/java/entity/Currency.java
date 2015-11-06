@@ -21,7 +21,8 @@ import javax.persistence.Table;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c")})
+    @NamedQuery(name = "Currency.findAll", query = "SELECT c FROM Currency c"),
+    @NamedQuery(name = "Currency.findByCode", query = "SELECT c FROM Currency c WHERE c.code = :code")})
 @Table(name = "currency")
 public class Currency implements Serializable {
 
@@ -33,8 +34,10 @@ public class Currency implements Serializable {
     private String code;
     @Column(name = "description")
     private String desc;
-    @Column(name = "rate")
-    private double rate;
+    @Column(name = "rateOld")
+    private double rateOld;
+    @Column(name = "rateNew")
+    private double rateNew;
 
     public Currency() {
     }
@@ -43,8 +46,10 @@ public class Currency implements Serializable {
         this.id = id;
         this.code = code;
         this.desc = desc;
-        this.rate = rate;
+        this.rateOld = rate;
     }
+    
+    
 
     public String getCode() {
         return code;
@@ -62,13 +67,22 @@ public class Currency implements Serializable {
         this.desc = desc;
     }
 
-    public double getRate() {
-        return rate;
+    public double getRateOld() {
+        return rateOld;
     }
 
-    public void setRate(double rate) {
-        this.rate = rate;
+    public void setRateOld(double rateOld) {
+        this.rateOld = rateOld;
     }
+
+    public double getRateNew() {
+        return rateNew;
+    }
+
+    public void setRateNew(double rateNew) {
+        this.rateNew = rateNew;
+    }
+    
 
     public int getId() {
         return id;

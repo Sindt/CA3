@@ -31,7 +31,9 @@ public class XmlReaderDemo extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         System.out.println("Start Document (Sax-event)");
-        facade.moveCurrencys();
+        if (facade.getAllCurrencys() != null) {
+            facade.moveRate();
+        }
     }
 
     @Override
@@ -50,19 +52,20 @@ public class XmlReaderDemo extends DefaultHandler {
         }
         System.out.println("VAL = " + elements);
         if (!elements.isEmpty()) {
-            Currency cur = new Currency();
-            cur.setCode(elements.get(0));
-            cur.setDesc(elements.get(1));
-            if (elements.get(2).equalsIgnoreCase("-")) {
-                elements.set(2, "0");
+            if (facade.getAllCurrencys() != null) {
+                facade.updateCurrency(elements.get(1), elements.get(2));
+            } else {
+                Currency cur = new Currency();
+                cur.setCode(elements.get(0));
+                cur.setDesc(elements.get(1));
+                if (elements.get(2).equalsIgnoreCase("-")) {
+                    elements.set(2, "0");
+                }
+                cur.setRateNew(Double.parseDouble(elements.get(2)));
+                facade.addCurruncy(cur);
             }
-            cur.setRate(Double.parseDouble(elements.get(2)));
-            facade.addCurruncy(cur);
-
             System.out.println(elements);
-
         }
-
         System.out.println("");
 
     }

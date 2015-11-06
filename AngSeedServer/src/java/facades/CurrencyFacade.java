@@ -6,7 +6,6 @@
 package facades;
 
 import entity.Currency;
-import entity.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -44,10 +43,18 @@ public class CurrencyFacade {
         return c;
     }
 
-    public Currency getCurrency(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Currency getCurrency(String code) {
+        EntityManager em = getEntityManager();
+        Currency c = new Currency();
+        try {
+            Query q = em.createNamedQuery("Currency.findByCode");
+            c = (Currency) q.setParameter("code", code).getSingleResult();
+        } catch (Exception e) {
+        }
+        return c;
+
     }
-    
+
     public List<Currency> getAllCurrencys() {
         EntityManager em = getEntityManager();
         List<Currency> curList;
@@ -61,7 +68,37 @@ public class CurrencyFacade {
         return curList;
     }
 
-    void moveCurrencys() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void moveRate() {
+        EntityManager em = getEntityManager();
+        List<Currency> curList;
+        try {
+            curList = new ArrayList();
+            Query q = em.createNamedQuery("Currency.findAll");
+            curList = q.getResultList();
+            for (Currency c : curList) {
+                c.setRateOld(c.getRateNew());
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public void updateCurrency(String code, String rate) {
+        EntityManager em = getEntityManager();
+        Currency c = getCurrency(code);
+
+        try {
+            em.getTransaction().begin();
+            if (rate.equalsIgnoreCase("-")) {
+                c.setRateNew(0);
+            } else {
+                c.setRateNew(Double.parseDouble(rate));
+            }
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+        } finally {
+            em.close();
+        }
+
     }
 }
