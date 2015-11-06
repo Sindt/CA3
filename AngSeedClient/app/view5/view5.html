@@ -1,4 +1,4 @@
-<div ng-controller="View4Ctrl as ctrl">
+<div ng-controller="View5Ctrl as ctrl">
     <h3>All Users</h3>
     <br>
     <input type="search" ng-model="userfilter" placeholder="Filter users">
@@ -11,7 +11,7 @@
             <tr  ng-repeat="users in ctrl.data | filter: userfilter">
                 <td>{{users.id}}</td>
                 <td>{{users.username}}</td>
-                <td><a href="#" ng-click="deleteCar(car.id)">delete</a></td>
+                <td><a href="#/view5" ng-click="deleteUser(users)">delete</a></td>
             </tr>
         </tbody>
     </table>

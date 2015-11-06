@@ -7,14 +7,29 @@ angular.module('myApp.view5', ['ngRoute'])
                     templateUrl: 'view5/view5.html'
                 });
             }])
-        .controller("View5Ctrl", ["$http", function ($http) {
+        .controller("View5Ctrl", ["$http", "$scope", function ($http, $scope) {
                 var self = this;
-                $http({
-                    method: "GET",
-                    url: "api/admin/users"
-                }).then(function succesCallback(response) {
-                    self.data = response.data;
-                }).then(function errorCallback(response) {
-                    self.error = response.status;
-                });
+                $scope.getUsers = function () {
+                    $http({
+                        method: "GET",
+                        url: "api/admin/users"
+                    }).then(function succesCallback(response) {
+                        self.data = response.data;
+                    }).then(function errorCallback(response) {
+                        self.error = "Du laver fejl, du lugter";
+                    })
+                };
+                $scope.getUsers();
+
+                $scope.deleteUser = function (users) {
+                    $http({
+                        method: "DELETE",
+                        url: "api/admin/user/" + users.id
+                    }).then(function succesCallback(response) {
+                        $scope.getUsers();
+
+                    });
+
+
+                };
             }]);
