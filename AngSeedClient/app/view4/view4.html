@@ -5,14 +5,15 @@
     <br>
     <table class="table" style="width: 50%">
         <thead>
-            <tr><td>ID</td><td>Country Code</td><td>Description</td><td>Rate</td></tr>
+            <tr><td>ID</td><td>Country Code</td><td>Description</td><td>Yesterday</td><td>Today</td></tr>
         </thead>
         <tbody id="tbody">
             <tr  ng-repeat="curs in ctrl.data | filter: currencyfilter">
                 <td>{{curs.id}}</td>
                 <td>{{curs.code}}</td>
                 <td>{{curs.desc}}</td>
-                <td>{{curs.rate}}</td>
+                <td>{{curs.rateOld}}</td>
+                <td>{{curs.rateNew}}</td>
             </tr>
         </tbody>
     </table>
