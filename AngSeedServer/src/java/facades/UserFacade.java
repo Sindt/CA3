@@ -38,16 +38,13 @@ public class UserFacade {
 
         try {
             u.setUsername(username);
-            u.setPassword(PasswordHash.createHash(password));
+            u.setPassword(password);
             u.AddRole("User");
             em.getTransaction().begin();
             em.persist(u);
             em.getTransaction().commit();
             return u;
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (InvalidKeySpecException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(UserFacade.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {

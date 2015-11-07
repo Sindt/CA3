@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package facades;
+package test;
 
 import deploy.DeploymentConfiguration;
 import entity.Currency;
+import facades.CurrencyFacade;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;

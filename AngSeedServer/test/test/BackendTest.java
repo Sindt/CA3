@@ -32,7 +32,7 @@ public class BackendTest {
     static Server server;
 
     public BackendTest() {
-        baseURI = "http://localhost:8082";
+        baseURI = "http://localhost:8080";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
