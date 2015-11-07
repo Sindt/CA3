@@ -48,10 +48,10 @@ public class CurrencyFacade {
         Currency c = new Currency();
         try {
             Query q = em.createNamedQuery("Currency.findByCode");
-            c = (Currency) q.setParameter("code", code).getSingleResult();
+            return c = (Currency) q.setParameter("code", code).getSingleResult();
         } catch (Exception e) {
+            return null;
         }
-        return c;
 
     }
 
@@ -76,23 +76,29 @@ public class CurrencyFacade {
             Query q = em.createNamedQuery("Currency.findAll");
             curList = q.getResultList();
             for (Currency c : curList) {
+                em.getTransaction().begin();
                 c.setRateOld(c.getRateNew());
+                em.merge(c);
+                em.getTransaction().commit();
             }
         } catch (Exception e) {
+        } finally {
+            em.close();
         }
     }
 
-    public void updateCurrency(String code, String rate) {
+    public void updateCurrency(Currency c, String rate) {
         EntityManager em = getEntityManager();
-        Currency c = getCurrency(code);
-
+        Currency cur;
         try {
             em.getTransaction().begin();
+            cur = em.find(Currency.class, c.getId());
             if (rate.equalsIgnoreCase("-")) {
-                c.setRateNew(0);
+                cur.setRateNew(0);
             } else {
-                c.setRateNew(Double.parseDouble(rate));
+                cur.setRateNew(Double.parseDouble(rate));
             }
+            em.merge(cur);
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -100,5 +106,21 @@ public class CurrencyFacade {
             em.close();
         }
 
+    }
+
+    public void moveRate(int id) {
+        EntityManager em = getEntityManager();
+        Currency c = new Currency();
+        try {
+            em.getTransaction().begin();
+            c = em.find(Currency.class, id);
+            c.setRateOld(c.getRateNew());
+            System.out.println(c.getRateOld());
+            em.merge(c);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+        } finally {
+            em.close();
+        }
     }
 }

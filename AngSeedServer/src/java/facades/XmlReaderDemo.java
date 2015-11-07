@@ -31,9 +31,6 @@ public class XmlReaderDemo extends DefaultHandler {
     @Override
     public void startDocument() throws SAXException {
         System.out.println("Start Document (Sax-event)");
-        if (facade.getAllCurrencys() != null) {
-            facade.moveRate();
-        }
     }
 
     @Override
@@ -43,29 +40,31 @@ public class XmlReaderDemo extends DefaultHandler {
 
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         List<String> elements = new ArrayList();
+        Currency c = new Currency();
         System.out.print("Element: " + localName + ": ");
         for (int i = 0; i < attributes.getLength(); i++) {
             if (localName.equals("currency")) {
                 elements.add(attributes.getValue(i));
             }
-            //System.out.print("[ VALUE: " + attributes.getValue(i) + "] ");
         }
         System.out.println("VAL = " + elements);
         if (!elements.isEmpty()) {
-            if (facade.getAllCurrencys() != null) {
-                facade.updateCurrency(elements.get(1), elements.get(2));
-            } else {
-                Currency cur = new Currency();
-                cur.setCode(elements.get(0));
-                cur.setDesc(elements.get(1));
-                if (elements.get(2).equalsIgnoreCase("-")) {
-                    elements.set(2, "0");
+            if (!facade.getAllCurrencys().isEmpty()) {
+                c = facade.getCurrency(elements.get(0));
+                if (c != null) {
+                    facade.moveRate(c.getId());
+                    facade.updateCurrency(c, elements.get(2));
+                } else {
+                    addUser(elements.get(0), elements.get(1), elements.get(2));
                 }
-                cur.setRateNew(Double.parseDouble(elements.get(2)));
-                facade.addCurruncy(cur);
+
+            } else {
+                addUser(elements.get(0), elements.get(1), elements.get(2));
             }
+
             System.out.println(elements);
         }
+
         System.out.println("");
 
     }
@@ -79,5 +78,17 @@ public class XmlReaderDemo extends DefaultHandler {
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addUser(String code, String desc, String rate) {
+        Currency cur = new Currency();
+        cur.setCode(code);
+        cur.setDesc(desc);
+        if (rate.equalsIgnoreCase("-")) {
+            rate = "0";
+        }
+        cur.setRateNew(Double.parseDouble(rate));
+        facade.addCurruncy(cur);
+
     }
 }
