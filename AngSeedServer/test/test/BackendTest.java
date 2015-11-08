@@ -11,6 +11,7 @@ import static com.jayway.restassured.RestAssured.defaultParser;
 import static com.jayway.restassured.RestAssured.given;
 import com.jayway.restassured.parsing.Parser;
 import static com.jayway.restassured.path.json.JsonPath.from;
+import javax.ws.rs.core.MediaType;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -41,6 +42,7 @@ public class BackendTest {
     public static void setUpClass() throws Exception {
         server = new Server(8082);
         ServletHolder servletHolder = new ServletHolder(org.glassfish.jersey.servlet.ServletContainer.class);
+
         servletHolder.setInitParameter("javax.ws.rs.Application", ApplicationConfig.class.getName());
         ServletContextHandler contextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
         contextHandler.setContextPath("/");
@@ -57,28 +59,13 @@ public class BackendTest {
     }
 
     @Test
-    public void LoginWrongUsername() {
-        given().
-                contentType("application/json").
-                body("{'username':'john','password':'test'}").
-                when().
-                post("/login").
-                then().
-                statusCode(401).
-                body("error.message", equalTo("Ilegal username or password"));
-    }
-
-    @Test
-    public void LoginWrongUsernameAndPassword() {
-        //wrong username and password
-        given().
-                contentType("application/json").
-                body("{'username':'john','password':'doe'}").
-                when().
-                post("/login").
-                then().
-                statusCode(401).
-                body("error.message", equalTo("Ilegal username or password"));
+    public void testGetAllUsers() {
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .when()
+                .get("/admin/users")
+                .then().
+                statusCode(200);
     }
 
     @Test
@@ -95,42 +82,24 @@ public class BackendTest {
     }
 
     @Test
-    public void testDemoUserNoLogin() {
-        given().
-                contentType("application/json").
-                when().
-                get("/user").
-                then().
-                statusCode(401);
+    public void testGetAllCurrencys() {
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .when()
+                .get("/currency/dailyrates")
+                .then().
+                statusCode(200);
     }
 
     @Test
-    public void testDemoUserLogin() {
-        //First, make a login to get the token for the Authorization, saving the response body in String json
-        String json = given().
-                contentType("application/json").
-                body("{'username':'user','password':'test'}").
-                when().
-                post("/login").
-                then().
-                statusCode(200).extract().asString();
+    public void testRegistreUser() {
+        given()
+                .contentType(MediaType.APPLICATION_JSON)
+                .body("{\"username\": \"testUser\", \"passwrod\": \"test\"}")
+                .when()
+                .post("/user/registration")
+                .then()
+                .statusCode(200).and().body("username", equalTo("testUser"));
 
-        //Then test /demouser URL with the correct token extracted from the JSON string.
-        given().
-                contentType("application/json").
-                header("Authorization", "Bearer " + from(json).get("token")).
-                when().
-                get("/user").
-                then().
-                statusCode(200);
-        //And test that the user cannot access /demoadmin rest service
-        given().
-                contentType("application/json").
-                header("Authorization", "Bearer " + from(json).get("token")).
-                when().
-                get("/admin").
-                then().
-                statusCode(403).
-                body("error.message", equalTo("You are not authorized to perform the requested operation"));
     }
 }
