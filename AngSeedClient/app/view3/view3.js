@@ -10,7 +10,6 @@ angular.module('myApp.view3', ['ngRoute'])
 
         .controller('View3Ctrl', ["$http", function ($http) {
                 var self = this;
-                var oneAtATime = true;
                 $http({
                     method: 'GET',
                     url: 'http://cvrapi.dk/api?vat=3167%208021&country=dk'
@@ -22,11 +21,6 @@ angular.module('myApp.view3', ['ngRoute'])
                     // or server returns response with an error status.
                 });
 
-                self.items = ['Item 1', 'Item 2', 'Item 3'];
-                self.addItem = function () {
-                    var newItemNo = self.items.length + 1;
-                    self.items.push('Item ' + newItemNo);
-                };
                 self.status = {
                     isFirstOpen: true,
                     isFirstDisabled: false

@@ -8,13 +8,14 @@ angular.module('myApp.view2', ['ngRoute'])
                 });
             }])
         .controller('View2Controller', function ($http, $scope) {
+            var self = this;
             $http({
                 method: 'GET',
-                URL: 'api/user'
-            }).then(function succesCallback(res) {
-                $scope.data = res.data.message;
-            }).then(function errorCallBack(res) {
-                $scope.error = res.status + ": " + res.data.statusText;
+                url: 'api/user'
+            }).then(function successCallback(response) {
+                self.data = response.data;
+            }, function errorCallback(response) {
+                self.error = response.status + " Noooo! " + response.statusText + "  upps";
             });
         });
 
