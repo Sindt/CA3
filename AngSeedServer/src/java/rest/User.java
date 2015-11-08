@@ -18,10 +18,9 @@ import javax.ws.rs.core.UriInfo;
 //@RolesAllowed("User")
 public class User {
 
-    
     @Context
     private UriInfo context;
-    
+
     EntityManagerFactory emf = Persistence.createEntityManagerFactory(DeploymentConfiguration.PU_NAME);
     UserFacade facade = new UserFacade(emf);
 
@@ -37,11 +36,9 @@ public class User {
     @Produces(MediaType.APPLICATION_JSON)
     public String registerUser(String user) {
 
-        
-        
         entity.User newUser = JSONConvert.getUserFromJson(user);
         newUser = facade.addUser(newUser.getUsername(), newUser.getPassword());
-        
+
         return JSONConvert.getJSONFromUser(newUser);
 //
 //        if (facade.getUserByName(newUser.getUsername()).toString().isEmpty()) {

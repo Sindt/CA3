@@ -32,7 +32,7 @@ public class BackendTest {
     static Server server;
 
     public BackendTest() {
-        baseURI = "http://localhost:8080";
+        baseURI = "http://localhost:8082";
         defaultParser = Parser.JSON;
         basePath = "/api";
     }
@@ -99,7 +99,7 @@ public class BackendTest {
         given().
                 contentType("application/json").
                 when().
-                get("/demouser").
+                get("/user").
                 then().
                 statusCode(401);
     }
@@ -120,7 +120,7 @@ public class BackendTest {
                 contentType("application/json").
                 header("Authorization", "Bearer " + from(json).get("token")).
                 when().
-                get("/demouser").
+                get("/user").
                 then().
                 statusCode(200);
         //And test that the user cannot access /demoadmin rest service
@@ -128,7 +128,7 @@ public class BackendTest {
                 contentType("application/json").
                 header("Authorization", "Bearer " + from(json).get("token")).
                 when().
-                get("/demoadmin").
+                get("/admin").
                 then().
                 statusCode(403).
                 body("error.message", equalTo("You are not authorized to perform the requested operation"));

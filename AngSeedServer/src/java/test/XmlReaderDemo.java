@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
